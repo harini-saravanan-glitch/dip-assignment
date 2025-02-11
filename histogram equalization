@@ -1,0 +1,22 @@
+import cv2
+from google.colab.patches import cv2_imshow 
+img1 = cv2.imread('image1.jpg')
+
+if img1 is None:
+    print("Error: 'image1.jpg' not found.")
+else:
+    gray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+    equalized_gray = cv2.equalizeHist(gray)
+    result_eq_gray = cv2.imwrite('equalized_gray.jpg', equalized_gray)
+    print("Equalized grayscale image saved:", result_eq_gray)
+    cv2_imshow(equalized_gray)
+
+
+    ycrcb = cv2.cvtColor(img1, cv2.COLOR_BGR2YCrCb)
+    y, cr, cb = cv2.split(ycrcb)
+    y_eq = cv2.equalizeHist(y)
+    ycrcb_eq = cv2.merge((y_eq, cr, cb))
+    equalized_color = cv2.cvtColor(ycrcb_eq, cv2.COLOR_YCrCb2BGR)
+    result_eq_color = cv2.imwrite('equalized_color.jpg', equalized_color)
+    print("Equalized color image saved:", result_eq_color)
+    cv2_imshow(equalized_color)
