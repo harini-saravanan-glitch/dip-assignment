@@ -1,0 +1,26 @@
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow  
+rows, cols = img1.shape[:2]
+tx, ty = 50, 30  
+M_translate = np.float32([[1, 0, tx],
+                          [0, 1, ty]])
+translated = cv2.warpAffine(img1, M_translate, (cols, rows))
+result_translate = cv2.imwrite('translated.jpg', translated)
+print("Translated image saved:", result_translate)
+angle = 45  
+center = (cols // 2, rows // 2)
+M_rotate = cv2.getRotationMatrix2D(center, angle, 1)  
+rotated = cv2.warpAffine(img1, M_rotate, (cols, rows))
+result_rotated = cv2.imwrite('rotated.jpg', rotated)
+print("Rotated image saved:", result_rotated)
+shear_factor = 0.2  
+M_shear = np.float32([[1, shear_factor, 0],
+                      [0, 1, 0]])
+new_cols = int(cols + shear_factor * rows)
+sheared = cv2.warpAffine(img1, M_shear, (new_cols, rows))
+result_sheared = cv2.imwrite('sheared.jpg', sheared)
+print("Sheared image saved:", result_sheared)
+cv2_imshow(translated)
+cv2_imshow(rotated)
+cv2_imshow(sheared)
