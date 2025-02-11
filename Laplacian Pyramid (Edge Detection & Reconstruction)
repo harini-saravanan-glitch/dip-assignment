@@ -1,0 +1,14 @@
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow 
+
+image = cv2.imread("image1.jpg")
+
+if image is None:
+    print("Error: Image not found. Please check the file path!")
+else:
+    lower_res = cv2.pyrDown(image)
+    higher_res = cv2.pyrUp(lower_res)
+    higher_res_resized = cv2.resize(higher_res, (image.shape[1], image.shape[0]))
+    laplacian = cv2.subtract(image, higher_res_resized)
+    cv2_imshow(laplacian)
