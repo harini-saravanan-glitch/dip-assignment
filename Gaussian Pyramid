@@ -1,0 +1,15 @@
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow
+
+image = cv2.imread("image1.jpg")
+
+lower_res1 = cv2.pyrDown(image)
+lower_res2 = cv2.pyrDown(lower_res1)
+
+cv2_imshow(image)
+cv2_imshow(lower_res1)
+cv2_imshow(lower_res2)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
